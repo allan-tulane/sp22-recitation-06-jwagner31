@@ -1,7 +1,7 @@
 # CMPS 2200 Reciation 6
 ## Answers
 
-**Name:**_________________________
+**Name:** Joe Wagner and Luke Albright
 
 
 Place all written answers from `recitation-06.md` here for easier grading.

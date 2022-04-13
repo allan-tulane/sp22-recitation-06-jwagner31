@@ -9,16 +9,29 @@ def qsort(a, pivot_fn):
     pivot = pivot_fn(a)
 
     left = qsort([elem for elem in a if elem<pivot], pivot_fn)
-    middle = qsort([elem for elem in a if elem==pivot], pivot_fn)
+    middle = [elem for elem in a if elem==pivot]
     right = qsort([elem for elem in a if elem>pivot], pivot_fn)
 
     return left+middle+right
 
-def qsort_random(a):
-  return qsort(a, lambda a: random.choice(a))
+
+
+def pivot_random(a):
+  return random.choice(a)
   
-def qsort_fixed(a):
-  return qsort(a, lambda a: a[0])
+def pivot_fixed(a):
+  return a[0]
+
+
+# a = [1, 7, 4, 9, 5]
+# print(qsort(a, pivot_fixed))
+
+
+# def qsort_random(a):
+#   return qsort(a, lambda a: random.choice(a))
+  
+# def qsort_fixed(a):
+#   return qsort(a, lambda a: a[0])
 
     
 def time_search(sort_fn, mylist):
@@ -44,7 +57,7 @@ def time_search(sort_fn, mylist):
     return (time.time() - start) * 1000
     ###
 
-def compare_sort(sizes=[100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000]):
+def compare_sort(sizes=[100, 200, 500, 700]):
   """
   Compare the running time of different sorting algorithms.
   
@@ -54,16 +67,16 @@ def compare_sort(sizes=[100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 10
   indicating the number of milliseconds it takes
   for each method to run on each value of n
   """
-  qsort_fixed_pivot = qsort_random
-  qsort_random_pivot = qsort_fixed
-  tim_sort = qsort_random
+  qsort_fixed_pivot = lambda a: qsort(a, pivot_random)#qsort_random
+  qsort_random_pivot = lambda a: qsort(a, pivot_fixed)
+  tim_sort = sorted
   result = []
   for size in sizes:
     # create list in ascending order
     mylist = list(range(size))
     # shuffles list if needed
-    #random.shuffle(mylist)
-    result.append([len(mylist), time_search(qsort_fixed_pivot, mylist), time_search(qsort_random_pivot, mylist),])
+    # random.shuffle(mylist)
+    result.append([len(mylist), time_search(qsort_fixed_pivot, mylist), time_search(qsort_random_pivot, mylist)])
   return result
   ###
 
@@ -80,3 +93,11 @@ def test_print():
 random.seed()
 test_print()
 
+
+# mylist = list(range(50))
+# # shuffles list if needed
+# random.shuffle(mylist)
+# print(mylist)
+# qsort_fixed_pivot = lambda a: qsort(a, pivot_fixed)
+
+# print(qsort_fixed_pivot(mylist))
