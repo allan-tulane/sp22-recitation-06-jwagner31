@@ -57,7 +57,7 @@ def time_search(sort_fn, mylist):
     return (time.time() - start) * 1000
     ###
 
-def compare_sort(sizes=[100, 200, 500, 700]):
+def compare_sort(sizes=[50, 100, 200, 300, 400, 500, 600, 700, 800, 900]):
   """
   Compare the running time of different sorting algorithms.
   
@@ -67,23 +67,23 @@ def compare_sort(sizes=[100, 200, 500, 700]):
   indicating the number of milliseconds it takes
   for each method to run on each value of n
   """
-  qsort_fixed_pivot = lambda a: qsort(a, pivot_random)#qsort_random
-  qsort_random_pivot = lambda a: qsort(a, pivot_fixed)
+  qsort_fixed_pivot = lambda a: qsort(a, pivot_fixed)#qsort_random
+  qsort_random_pivot = lambda a: qsort(a, pivot_random)
   tim_sort = sorted
   result = []
   for size in sizes:
     # create list in ascending order
     mylist = list(range(size))
     # shuffles list if needed
-    # random.shuffle(mylist)
-    result.append([len(mylist), time_search(qsort_fixed_pivot, mylist), time_search(qsort_random_pivot, mylist)])
+    random.shuffle(mylist)
+    result.append([len(mylist), time_search(tim_sort, mylist), time_search(qsort_random_pivot, mylist)])
   return result
   ###
 
 def print_results(results):
     """ change as needed for comparisons """
     print(tabulate.tabulate(results,
-                            headers=['n', 'qsort-fixed-pivot', 'qsort-random-pivot'],
+                            headers=['n', 'time-sort', 'qsort-random-pivot'],
                             floatfmt=".3f",
                             tablefmt="github"))
 
